@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La mia App</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #1e1e2e;
+            color: #cdd6f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background-color: #313244;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            text-align: center;
+            width: 320px;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 6px;
+            border: none;
+            font-size: 16px;
+        }
+        button {
+            background-color: #89b4fa;
+            color: #11111b;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #b4befe;
+        }
+        #risultato {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #a6e3a1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Pannello Controllo</h2>
+        <p>Inserisci un dato da elaborare:</p>
+        <input type="text" id="campoInput" placeholder="Scrivi qualcosa qui...">
+        <button onclick="eseguiAzione()">Avvia Automazione</button>
+        <div id="risultato"></div>
+    </div>
+
+    <script>
+        function eseguiAzione() {
+            const testo = document.getElementById('campoInput').value;
+            const boxRisultato = document.getElementById('risultato');
+            
+            if (testo.trim() === "") {
+                boxRisultato.style.color = "#f38ba8";
+                boxRisultato.innerText = "Errore: inserisci prima un testo!";
+            } else {
+                const ora = new Date().toLocaleTimeString();
+                boxRisultato.style.color = "#a6e3a1";
+                boxRisultato.innerText = `Elaborato alle ${ora}: "${testo.toUpperCase()}"`;
+            }
+        }
+    </script>
+
+</body>
+</html>
