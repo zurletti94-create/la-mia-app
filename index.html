@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planning Estate 2027 - Gestione Staff e Turni</title>
+    <title>Planning Estate 2027 - Gestione Staff e Gruppi</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -71,10 +71,10 @@
         }
         .staff-layout {
             display: grid;
-            grid-template-columns: 1.2fr 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
         }
-        @media (max-width: 1050px) {
+        @media (max-width: 1100px) {
             .staff-layout { grid-template-columns: 1fr; }
         }
 
@@ -86,15 +86,6 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-bottom: 6px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .form-grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 12px;
         }
         .form-grid-3 {
             display: grid;
@@ -102,8 +93,14 @@
             gap: 12px;
             margin-bottom: 12px;
         }
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
         @media (max-width: 650px) {
-            .form-grid-2, .form-grid-3 { grid-template-columns: 1fr; }
+            .form-grid-3, .form-grid-2 { grid-template-columns: 1fr; }
         }
         .input-group {
             display: flex;
@@ -149,14 +146,14 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 6px;
-            max-height: 140px;
+            max-height: 130px;
             overflow-y: auto;
         }
         .weeks-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 6px;
-            max-height: 155px;
+            max-height: 140px;
             overflow-y: auto;
         }
         .check-item {
@@ -184,7 +181,6 @@
             color: #89b4fa;
             cursor: pointer;
             text-decoration: underline;
-            font-weight: normal;
         }
 
         /* Pulsanti */
@@ -200,52 +196,23 @@
             font-size: 14px;
         }
         button.btn:hover { background-color: #b4befe; }
-        button.danger {
-            background-color: #f38ba8;
-            padding: 5px 8px;
-            font-size: 11.5px;
-        }
-        button.warning {
-            background-color: #fab387;
-            padding: 5px 8px;
-            font-size: 11.5px;
-            color: #11111b;
-        }
-        button.duplicate {
-            background-color: #89dceb;
-            padding: 5px 8px;
-            font-size: 11.5px;
-            color: #11111b;
-        }
-        button.secondary {
-            background-color: #6c7086;
-            color: white;
-            display: none;
-        }
-        button.generate {
-            width: 100%;
-            padding: 15px;
-            font-size: 16px;
-            background-color: #a6e3a1;
-            margin-bottom: 15px;
-        }
+        button.danger { background-color: #f38ba8; padding: 5px 8px; font-size: 11.5px; }
+        button.warning { background-color: #fab387; padding: 5px 8px; font-size: 11.5px; color: #11111b; }
+        button.duplicate { background-color: #89dceb; padding: 5px 8px; font-size: 11.5px; color: #11111b; }
+        button.secondary { background-color: #6c7086; color: white; display: none; }
+        button.generate { width: 100%; padding: 15px; font-size: 16px; background-color: #a6e3a1; margin-bottom: 15px; }
         button.generate:hover { background-color: #94e2d5; }
-        button.pdf-btn {
-            background-color: #f38ba8;
-            color: #11111b;
-            padding: 10px 18px;
-            font-size: 14px;
-        }
+        button.pdf-btn { background-color: #f38ba8; color: #11111b; padding: 10px 18px; font-size: 14px; }
 
-        /* Lista Staff */
-        ul.staff-list {
+        /* Liste */
+        ul.staff-list, ul.groups-list {
             list-style: none;
             padding: 0;
             margin: 0;
-            max-height: 750px;
+            max-height: 400px;
             overflow-y: auto;
         }
-        li.person-item {
+        li.person-item, li.group-item {
             background-color: #45475a;
             padding: 12px 14px;
             border-radius: 8px;
@@ -255,13 +222,8 @@
             align-items: flex-start;
             gap: 10px;
         }
-        .person-details { flex: 1; }
-        .person-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+        .person-details, .group-details { flex: 1; }
+        .person-header { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .hours-cap {
             font-size: 12px;
             background-color: #181825;
@@ -270,12 +232,7 @@
             border-radius: 6px;
             font-weight: bold;
         }
-        .badges-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-            margin-top: 6px;
-        }
+        .badges-container { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
         .badge {
             background-color: #89b4fa;
             color: #11111b;
@@ -319,9 +276,7 @@
             gap: 10px;
             margin-top: 15px;
         }
-        @media (max-width: 900px) {
-            .slot-config-grid { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 900px) { .slot-config-grid { grid-template-columns: 1fr; } }
         .slot-row {
             background-color: #45475a;
             padding: 10px 12px;
@@ -330,16 +285,8 @@
             flex-direction: column;
             gap: 6px;
         }
-        .slot-time {
-            font-weight: bold;
-            color: #f9e2af;
-            font-size: 13.5px;
-        }
-        .slot-roles {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
+        .slot-time { font-weight: bold; color: #f9e2af; font-size: 13.5px; }
+        .slot-roles { display: flex; flex-wrap: wrap; gap: 6px; }
         .slot-roles label {
             font-size: 12px;
             display: flex;
@@ -363,58 +310,16 @@
             border-radius: 12px;
             margin-bottom: 15px;
         }
-        .week-select-group {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .week-select-group select {
-            font-size: 15px;
-            font-weight: bold;
-            color: #f9e2af;
-            padding: 10px 14px;
-            min-width: 290px;
-        }
+        .week-select-group { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .week-select-group select { font-size: 15px; font-weight: bold; color: #f9e2af; padding: 10px 14px; min-width: 290px; }
 
         /* Tabella Planning */
-        .table-wrapper {
-            overflow-x: auto;
-            margin-bottom: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: #313244;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        th, td {
-            border: 1px solid #45475a;
-            padding: 10px;
-            text-align: left;
-            vertical-align: top;
-        }
-        th {
-            background-color: #181825;
-            color: #89b4fa;
-            text-align: center;
-            font-size: 14.5px;
-        }
-        th .sub-date {
-            display: block;
-            font-size: 11.5px;
-            color: #bac2de;
-            font-weight: normal;
-            margin-top: 2px;
-        }
-        .turno-label {
-            font-weight: bold;
-            color: #f9e2af;
-            width: 130px;
-            white-space: nowrap;
-            background-color: #252636;
-        }
+        .table-wrapper { overflow-x: auto; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; background-color: #313244; border-radius: 12px; overflow: hidden; }
+        th, td { border: 1px solid #45475a; padding: 10px; text-align: left; vertical-align: top; }
+        th { background-color: #181825; color: #89b4fa; text-align: center; font-size: 14.5px; }
+        th .sub-date { display: block; font-size: 11.5px; color: #bac2de; font-weight: normal; margin-top: 2px; }
+        .turno-label { font-weight: bold; color: #f9e2af; width: 130px; white-space: nowrap; background-color: #252636; }
         .person-tag {
             display: flex;
             justify-content: space-between;
@@ -426,31 +331,12 @@
             font-size: 13px;
             border-left: 3px solid #a6e3a1;
         }
-        .person-tag.unassigned {
-            border-left-color: #f38ba8;
-            background-color: rgba(243, 139, 168, 0.15);
-            color: #f38ba8;
-        }
-        .role-pill {
-            font-size: 11px;
-            background-color: #181825;
-            color: #cdd6f4;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
+        .person-tag.unassigned { border-left-color: #f38ba8; background-color: rgba(243, 139, 168, 0.15); color: #f38ba8; }
+        .role-pill { font-size: 11px; background-color: #181825; color: #cdd6f4; padding: 2px 6px; border-radius: 4px; }
 
         /* Riepilogo Ore */
-        .hours-summary-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 12px;
-        }
-        .summary-card {
-            background-color: #252636;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #45475a;
-        }
+        .hours-summary-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+        .summary-card { background-color: #252636; padding: 12px; border-radius: 8px; border: 1px solid #45475a; }
         .summary-card strong { color: #89b4fa; font-size: 15px; }
         .summary-stat { font-size: 13px; margin-top: 5px; color: #cdd6f4; }
 
@@ -463,11 +349,7 @@
             header, .nav-tabs, .week-selector-bar, details, button, .no-print { display: none !important; }
             .view-section { display: block !important; }
             #view-staff { display: none !important; }
-            .print-only-header {
-                display: block !important;
-                text-align: center;
-                margin-bottom: 12px;
-            }
+            .print-only-header { display: block !important; text-align: center; margin-bottom: 12px; }
             .print-only-header h2 { color: black; margin: 0; font-size: 20px; }
             table { background-color: white; border: 1px solid #ccc; }
             th { background-color: #f0f0f0 !important; color: black !important; border: 1px solid #ccc; }
@@ -496,13 +378,11 @@
     <!-- ========================================== -->
     <div id="view-planning" class="view-section active">
         
-        <!-- Configurazione Ruoli per Fascia Oraria -->
         <details class="config-accordion no-print">
             <summary>⚙️ Configura Ruoli Richiesti per Fascia Oraria (Clicca per aprire/chiudere)</summary>
             <div class="slot-config-grid" id="configFasceOrarie"></div>
         </details>
 
-        <!-- Selezione Settimana -->
         <div class="week-selector-bar no-print">
             <div class="week-select-group">
                 <label for="selectSettimana" style="font-weight: bold; color: #89b4fa;">📆 Seleziona Settimana:</label>
@@ -519,10 +399,8 @@
             <h2 id="titoloStampaSettimana">Planning Settimanale</h2>
         </div>
 
-        <!-- Tabella Turni -->
         <div class="table-wrapper" id="risultatoPlanning"></div>
 
-        <!-- Riepilogo Ore -->
         <div class="card no-print">
             <h3>📊 Riepilogo Monte Ore Assegnate (Settimana Corrente)</h3>
             <div class="hours-summary-grid" id="riepilogoOre"></div>
@@ -530,11 +408,37 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- VISTA 2: STAFF, FERIE E GRUPPI             -->
+    <!-- VISTA 2: STAFF, FERIE E MACRO-GRUPPI       -->
     <!-- ========================================== -->
     <div id="view-staff" class="view-section">
+        
+        <!-- Sotto-sezione 1: Gestione Macro-Gruppi -->
+        <div class="card" style="margin-bottom: 25px;">
+            <h2 id="titoloFormGruppo">🏷️ Gestione Macro-Gruppi & Regole</h2>
+            <input type="hidden" id="editGruppoIndex" value="-1">
+            
+            <div class="form-grid-2">
+                <div class="input-group">
+                    <label>Nome Gruppo *</label>
+                    <input type="text" id="nomeGruppo" placeholder="Es. Animatori">
+                </div>
+                <div class="input-group">
+                    <label>Regole / Comportamento del Gruppo</label>
+                    <textarea id="regoleGruppo" placeholder="Es. Mantiene lo stesso ruolo per tutta la mattina o tutto il pomeriggio..."></textarea>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                <button class="btn" id="btnSalvaGruppo" onclick="salvaGruppo()">💾 Salva Gruppo</button>
+                <button class="btn secondary" id="btnAnnullaGruppo" onclick="annullaModificaGruppo()">Annulla</button>
+            </div>
+
+            <h3 style="font-size: 15px; margin-top: 15px; color: #bac2de;">Gruppi Creati (<span id="contatoreGruppi">0</span>)</h3>
+            <ul class="groups-list" id="listaGruppi"></ul>
+        </div>
+
+        <!-- Sotto-sezione 2: Gestione Operatori Staff -->
         <div class="staff-layout">
-            <!-- Form Inserimento / Modifica -->
             <div class="card">
                 <h2 id="titoloFormPersona">➕ Aggiungi Operatore</h2>
                 <input type="hidden" id="editIndex" value="-1">
@@ -548,9 +452,6 @@
                         <label>Macro-Gruppo</label>
                         <select id="gruppoPersona">
                             <option value="">Nessuno (Standard)</option>
-                            <option value="Animatori">Animatori (Blocco ruolo Mattina/Pomeriggio)</option>
-                            <option value="Istruttori">Istruttori</option>
-                            <option value="Assistenti">Assistenti</option>
                         </select>
                     </div>
                     <div class="input-group">
@@ -566,19 +467,15 @@
                     </div>
                 </div>
 
-                <!-- Ruoli -->
                 <div class="section-label">1. Ruoli Abilitati *</div>
                 <div class="box-group roles-grid" id="formRuoli"></div>
 
-                <!-- Ferie Settimane -->
                 <div class="section-label">2. Ferie: Settimane Intere di Assenza (Estate 2027)</div>
                 <div class="box-group weeks-grid" id="formSettimaneNo"></div>
 
-                <!-- Giorni No -->
                 <div class="section-label">3. Giorni Fissi di Riposo / Assenza (Lun-Ven)</div>
                 <div class="box-group days-grid" id="formGiorniNo"></div>
 
-                <!-- Fasce Orarie -->
                 <div class="section-label">
                     <span>4. Fasce Orarie Disponibili (togli spunta per permessi)</span>
                     <span>
@@ -599,7 +496,6 @@
                 </div>
             </div>
 
-            <!-- Elenco Staff -->
             <div class="card">
                 <h2>📋 Elenco Staff Configurato (<span id="contatoreStaff">0</span>)</h2>
                 <ul class="staff-list" id="listaPersone"></ul>
@@ -665,7 +561,14 @@
 
     const SETTIMANE_2027 = generaSettimaneEstate2027();
 
-    let persone = JSON.parse(localStorage.getItem('staff_2027_v2')) || [
+    // Dati Macro-Gruppi
+    let macroGruppi = JSON.parse(localStorage.getItem('macro_gruppi_2027')) || [
+        { nome: "Animatori", regole: "Mantiene la stessa mansione per tutta la mattina o tutto il pomeriggio." },
+        { nome: "Istruttori", regole: "Gestione flessibile su campi sportivi e piscina." },
+        { nome: "Assistenti", regole: "Supporto generale e logistica." }
+    ];
+
+    let persone = JSON.parse(localStorage.getItem('staff_2027_v3')) || [
         {
             nome: "Paolo",
             gruppo: "Animatori",
@@ -681,17 +584,6 @@
             nome: "Nicola",
             gruppo: "Istruttori",
             ruoli: ["Multisport", "Piscina", "Pranzo", "Tennis/Padel"],
-            maxOreGiorno: 8,
-            maxOreSettimana: 40,
-            settimaneNo: [],
-            giorniNo: [],
-            fasceOk: FASCE_ORARIE_FISSE.map(f => f.label),
-            noteFerie: ""
-        },
-        {
-            nome: "Giulia",
-            gruppo: "Animatori",
-            ruoli: ["Gazebo", "Check-In", "Pranzo"],
             maxOreGiorno: 8,
             maxOreSettimana: 40,
             settimaneNo: [],
@@ -715,7 +607,8 @@
     };
 
     function salvaDati() {
-        localStorage.setItem('staff_2027_v2', JSON.stringify(persone));
+        localStorage.setItem('macro_gruppi_2027', JSON.stringify(macroGruppi));
+        localStorage.setItem('staff_2027_v3', JSON.stringify(persone));
         localStorage.setItem('orari_v3', JSON.stringify(configOrari));
     }
 
@@ -758,10 +651,91 @@
         `).join('');
     }
 
-    function selezionaTutteOre(stato) {
-        document.querySelectorAll('.cb-ora-ok').forEach(cb => cb.checked = stato);
+    function aggiornaSelectGruppi() {
+        const select = document.getElementById('gruppoPersona');
+        select.innerHTML = `<option value="">Nessuno (Standard)</option>` + macroGruppi.map(g => `
+            <option value="${g.nome}">${g.nome}</option>
+        `).join('');
     }
 
+    // Gestione CRUD Macro-Gruppi
+    function aggiornaListaGruppi() {
+        document.getElementById('contatoreGruppi').innerText = macroGruppi.length;
+        const ul = document.getElementById('listaGruppi');
+
+        ul.innerHTML = macroGruppi.map((g, index) => `
+            <li class="group-item">
+                <div class="group-details">
+                    <strong style="color: #cba6f7; font-size: 15px;">👥 ${g.nome}</strong>
+                    <div class="note-text">📜 ${g.regole || 'Nessuna regola specificata.'}</div>
+                </div>
+                <div style="display: flex; gap: 4px; flex-shrink: 0;">
+                    <button class="btn warning" onclick="iniziaModificaGruppo(${index})">Modifica</button>
+                    <button class="btn danger" onclick="rimuoviGruppo(${index})">X</button>
+                </div>
+            </li>
+        `).join('');
+
+        aggiornaSelectGruppi();
+    }
+
+    function salvaGruppo() {
+        const nome = document.getElementById('nomeGruppo').value.trim();
+        const regole = document.getElementById('regoleGruppo').value.trim();
+        const editIndex = parseInt(document.getElementById('editGruppoIndex').value);
+
+        if (!nome) return alert("Inserisci il nome del macro-gruppo!");
+
+        if (editIndex === -1) {
+            if (macroGruppi.some(g => g.nome.toLowerCase() === nome.toLowerCase())) {
+                return alert("Esiste già un gruppo con questo nome!");
+            }
+            macroGruppi.push({ nome, regole });
+        } else {
+            macroGruppi[editIndex] = { nome, regole };
+        }
+
+        annullaModificaGruppo();
+        salvaDati();
+        aggiornaListaGruppi();
+        aggiornaListaPersone();
+    }
+
+    function iniziaModificaGruppo(index) {
+        const g = macroGruppi[index];
+        document.getElementById('nomeGruppo').value = g.nome;
+        document.getElementById('regoleGruppo').value = g.regole || '';
+        document.getElementById('editGruppoIndex').value = index;
+
+        document.getElementById('titoloFormGruppo').innerText = "✏️ Modifica Macro-Gruppo: " + g.nome;
+        document.getElementById('btnSalvaGruppo').innerText = "💾 Salva Modifiche";
+        document.getElementById('btnAnnullaGruppo').style.display = "inline-block";
+    }
+
+    function annullaModificaGruppo() {
+        document.getElementById('nomeGruppo').value = '';
+        document.getElementById('regoleGruppo').value = '';
+        document.getElementById('editGruppoIndex').value = "-1";
+
+        document.getElementById('titoloFormGruppo').innerText = "🏷️ Gestione Macro-Gruppi & Regole";
+        document.getElementById('btnSalvaGruppo').innerText = "💾 Salva Gruppo";
+        document.getElementById('btnAnnullaGruppo').style.display = "none";
+    }
+
+    function rimuoviGruppo(index) {
+        const nomeGruppo = macroGruppi[index].nome;
+        if (!confirm(`Vuoi davvero eliminare il gruppo "${nomeGruppo}"?`)) return;
+
+        macroGruppi.splice(index, 1);
+        // Rimuove l'associazione del gruppo dalle persone che ce l'avevano
+        persone.forEach(p => { if (p.gruppo === nomeGruppo) p.gruppo = ""; });
+
+        salvaDati();
+        aggiornaListaGruppi();
+        aggiornaListaPersone();
+    }
+
+    // Gestione Operatori Staff
     function aggiornaListaPersone() {
         document.getElementById('contatoreStaff').innerText = persone.length;
         const ul = document.getElementById('listaPersone');
@@ -792,12 +766,16 @@
                     </div>
                     <div style="display: flex; gap: 4px; flex-shrink: 0;">
                         <button class="btn warning" onclick="iniziaModifica(${index})">Modifica</button>
-                        <button class="btn duplicate" onclick="duplicaPersona(${index})" title="Crea un nuovo operatore copiando questo">Duplica</button>
+                        <button class="btn duplicate" onclick="duplicaPersona(${index})" title="Duplica operatore">Duplica</button>
                         <button class="btn danger" onclick="rimuoviPersona(${index})">X</button>
                     </div>
                 </li>
             `;
         }).join('');
+    }
+
+    function selezionaTutteOre(stato) {
+        document.querySelectorAll('.cb-ora-ok').forEach(cb => cb.checked = stato);
     }
 
     function salvaPersona() {
@@ -860,7 +838,7 @@
         document.getElementById('maxOreGiorno').value = p.maxOreGiorno || 8;
         document.getElementById('maxOreSettimana').value = p.maxOreSettimana || 40;
         document.getElementById('noteFerie').value = p.noteFerie || '';
-        document.getElementById('editIndex').value = "-1"; // Nuovo inserimento
+        document.getElementById('editIndex').value = "-1";
 
         document.getElementById('titoloFormPersona').innerText = "➕ Nuovo Operatore (da duplicazione)";
         document.getElementById('btnSalvaPersona').innerText = "💾 Salva Operatore";
@@ -936,7 +914,7 @@
         salvaDati();
     }
 
-    // Generazione Planning con supporto regole Animatori e Tennis/Padel (2 persone fisse)
+    // Generazione Planning con Regole Gruppo Animatori e Tennis/Padel
     function generaPlanning() {
         const weekId = document.getElementById('selectSettimana').value;
         const settimanaObj = SETTIMANE_2027.find(s => s.id === weekId) || SETTIMANE_2027[0];
@@ -945,12 +923,15 @@
 
         let oreSettimanali = {};
         let oreGiornaliere = {}; 
-        let ruoloFissoAnimatori = {}; // { "Nome_Giorno_Blocco": "Ruolo" } per gli animatori
+        let ruoloFissoGruppi = {}; // { "NomeOperatore_Giorno_Blocco": "Ruolo" }
 
         persone.forEach(p => {
             oreSettimanali[p.nome] = 0;
             oreGiornaliere[p.nome] = [0, 0, 0, 0, 0];
         });
+
+        // Controlla se il gruppo "Animatori" esiste tra i macro gruppi
+        const esisteGruppoAnimatori = macroGruppi.some(g => g.nome.toLowerCase() === "animatori");
 
         let html = '<table><thead><tr><th>Fascia Oraria</th>';
         GIORNI_NOMI.forEach((g, idx) => {
@@ -961,17 +942,16 @@
         FASCE_ORARIE_FISSE.forEach((fasciaObj, fIndex) => {
             const fascia = fasciaObj.label;
             const durata = fasciaObj.durata;
-            const blocco = fasciaObj.blocco; // 'mattina', 'pranzo', 'pomeriggio'
+            const blocco = fasciaObj.blocco;
             
             html += `<tr><td class="turno-label">${fascia}</td>`;
             const ruoliRichiestiBase = configOrari[fascia] || [];
 
-            // Espande la lista dei ruoli se serve (es. Tennis/Padel richiede 2 persone)
             let ruoliRichiesti = [];
             ruoliRichiestiBase.forEach(r => {
                 if (r === "Tennis/Padel") {
                     ruoliRichiesti.push("Tennis/Padel");
-                    ruoliRichiesti.push("Tennis/Padel"); // Richiede 2 operatori
+                    ruoliRichiesti.push("Tennis/Padel");
                 } else {
                     ruoliRichiesti.push(r);
                 }
@@ -1003,15 +983,14 @@
                     });
 
                     if (candidatiValidi.length > 0) {
-                        // REGOLA 1: Se l'operatore è un Animatore e ha già un ruolo fisso in questo blocco (mattina/pomeriggio), deve mantenerlo!
                         let scelto = null;
                         const chiaveBlocco = `${gIndex}_${blocco}`;
 
-                        // Cerca se c'è un candidato con ruolo già bloccato per questo blocco orario
+                        // Verifica se appartiene a un gruppo che richiede il blocco turno (es. Animatori)
                         const candidatoBloccato = candidatiValidi.find(p => {
-                            if (p.gruppo === "Animatori") {
-                                const chiaveAnimatore = `${p.nome}_${chiaveBlocco}`;
-                                if (ruoloFissoAnimatori[chiaveAnimatore] && ruoloFissoAnimatori[chiaveAnimatore] === ruolo) {
+                            if (p.gruppo && p.gruppo.toLowerCase() === "animatori") {
+                                const chiaveKey = `${p.nome}_${chiaveBlocco}`;
+                                if (ruoloFissoGruppi[chiaveKey] && ruoloFissoGruppi[chiaveKey] === ruolo) {
                                     return true;
                                 }
                             }
@@ -1021,7 +1000,6 @@
                         if (candidatoBloccato) {
                             scelto = candidatoBloccato;
                         } else {
-                            // Altrimenti ordina e sceglie chi ha lavorato meno
                             candidatiValidi.sort((a, b) => {
                                 const diffOre = oreSettimanali[a.nome] - oreSettimanali[b.nome];
                                 if (diffOre !== 0) return diffOre;
@@ -1029,11 +1007,11 @@
                             });
                             scelto = candidatiValidi[0];
 
-                            // Se è un Animatore senza ruolo bloccato in questo blocco, glielo blocchiamo per tutta la mattina/pomeriggio
-                            if (scelto.gruppo === "Animatori" && blocco !== "pranzo") {
-                                const chiaveAnimatore = `${scelto.nome}_${chiaveBlocco}`;
-                                if (!ruoloFissoAnimatori[chiaveAnimatore]) {
-                                    ruoloFissoAnimatori[chiaveAnimatore] = ruolo;
+                            // Se fa parte del gruppo Animatori e siamo in un blocco orario valido (mattina/pomeriggio), blocca la mansione
+                            if (scelto.gruppo && scelto.gruppo.toLowerCase() === "animatori" && blocco !== "pranzo") {
+                                const chiaveKey = `${scelto.nome}_${chiaveBlocco}`;
+                                if (!ruoloFissoGruppi[chiaveKey]) {
+                                    ruoloFissoGruppi[chiaveKey] = ruolo;
                                 }
                             }
                         }
@@ -1092,16 +1070,21 @@
                     <strong>${p.nome}</strong>
                     <div class="summary-stat">Totale: <strong>${totSett}h</strong> / ${maxSett}h (${perc}%)</div>
                     <div style="font-size: 11px; color: #bac2de; margin-top: 4px;">
-                        L:${oreGiornaliere[p.nome][0]}h • M:${oreGiornaliere[p.nome][1]}h • M:${oreGiornaliere[p.nome][2]}h • G:${oreGiornaliere[p.nome][3]}h • V:${oreGiornaliere[p.nome][4]}h
+                        L:${oreGiornelGiorno(oreGiornaliere, p.nome, 0)}h • M:${oreGiornelGiorno(oreGiornaliere, p.nome, 1)}h • M:${oreGiornelGiorno(oreGiornaliere, p.nome, 2)}h • G:${oreGiornelGiorno(oreGiornaliere, p.nome, 3)}h • V:${oreGiornelGiorno(oreGiornaliere, p.nome, 4)}h
                     </div>
                 </div>
             `;
         }).join('');
     }
 
-    // Avvio
+    function oreGiornelGiorno(matrix, nome, idx) {
+        return matrix[nome] ? matrix[nome][idx] : 0;
+    }
+
+    // Inizializzazione all'avvio
     initSelectSettimane();
     initFormStaff();
+    aggiornaListaGruppi();
     aggiornaListaPersone();
     aggiornaConfigOrari();
     generaPlanning();
