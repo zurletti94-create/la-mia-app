@@ -52,20 +52,14 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        .tab-btn:hover {
-            background-color: #45475a;
-        }
+        .tab-btn:hover { background-color: #45475a; }
         .tab-btn.active {
             background-color: #89b4fa;
             color: #11111b;
             border-color: #89b4fa;
         }
-        .view-section {
-            display: none;
-        }
-        .view-section.active {
-            display: block;
-        }
+        .view-section { display: none; }
+        .view-section.active { display: block; }
 
         /* Card & Layout */
         .card {
@@ -104,7 +98,7 @@
         }
         .form-grid-3 {
             display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr;
+            grid-template-columns: 1.4fr 1.1fr 1.1fr;
             gap: 12px;
             margin-bottom: 12px;
         }
@@ -132,7 +126,7 @@
         }
         textarea {
             resize: vertical;
-            min-height: 55px;
+            min-height: 50px;
         }
         .box-group {
             background-color: #252636;
@@ -155,14 +149,14 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 6px;
-            max-height: 150px;
+            max-height: 140px;
             overflow-y: auto;
         }
         .weeks-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 6px;
-            max-height: 165px;
+            max-height: 155px;
             overflow-y: auto;
         }
         .check-item {
@@ -183,18 +177,13 @@
             cursor: pointer;
             margin: 0;
         }
-        .check-item.day-off input, .check-item.week-off input {
-            accent-color: #f38ba8;
-        }
-        .check-item.hour-ok input {
-            accent-color: #a6e3a1;
-        }
+        .check-item.day-off input, .check-item.week-off input { accent-color: #f38ba8; }
+        .check-item.hour-ok input { accent-color: #a6e3a1; }
         .mini-link {
             font-size: 11px;
             color: #89b4fa;
             cursor: pointer;
             text-decoration: underline;
-            text-transform: none;
             font-weight: normal;
         }
 
@@ -213,13 +202,19 @@
         button.btn:hover { background-color: #b4befe; }
         button.danger {
             background-color: #f38ba8;
-            padding: 6px 10px;
-            font-size: 12px;
+            padding: 5px 8px;
+            font-size: 11.5px;
         }
         button.warning {
             background-color: #fab387;
-            padding: 6px 10px;
-            font-size: 12px;
+            padding: 5px 8px;
+            font-size: 11.5px;
+            color: #11111b;
+        }
+        button.duplicate {
+            background-color: #89dceb;
+            padding: 5px 8px;
+            font-size: 11.5px;
             color: #11111b;
         }
         button.secondary {
@@ -260,9 +255,7 @@
             align-items: flex-start;
             gap: 10px;
         }
-        .person-details {
-            flex: 1;
-        }
+        .person-details { flex: 1; }
         .person-header {
             display: flex;
             align-items: center;
@@ -291,6 +284,7 @@
             font-size: 11px;
             font-weight: bold;
         }
+        .badge.group-badge { background-color: #cba6f7; color: #11111b; }
         .badge.limit-day { background-color: #f38ba8; color: #11111b; }
         .badge.limit-week { background-color: #eba0ac; color: #11111b; }
         .badge.limit-hour { background-color: #f9e2af; color: #11111b; }
@@ -298,13 +292,13 @@
             font-size: 12px;
             color: #bac2de;
             font-style: italic;
-            margin-top: 6px;
+            margin-top: 5px;
             background-color: #313244;
-            padding: 5px 8px;
+            padding: 4px 8px;
             border-radius: 5px;
         }
 
-        /* Configurazione Fasce Orarie (Accordion/Compatta) */
+        /* Configurazione Ruoli */
         details.config-accordion {
             background-color: #313244;
             border-radius: 12px;
@@ -445,7 +439,7 @@
             border-radius: 4px;
         }
 
-        /* Riepilogo Ore Settimanali */
+        /* Riepilogo Ore */
         .hours-summary-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -457,15 +451,8 @@
             border-radius: 8px;
             border: 1px solid #45475a;
         }
-        .summary-card strong {
-            color: #89b4fa;
-            font-size: 15px;
-        }
-        .summary-stat {
-            font-size: 13px;
-            margin-top: 5px;
-            color: #cdd6f4;
-        }
+        .summary-card strong { color: #89b4fa; font-size: 15px; }
+        .summary-stat { font-size: 13px; margin-top: 5px; color: #cdd6f4; }
 
         .print-only-header { display: none; }
 
@@ -500,7 +487,7 @@
         <h1>☀️ Planning Estate 2027 (14 Giu – 10 Set)</h1>
         <div class="nav-tabs">
             <button class="tab-btn active" id="tab-planning" onclick="cambiaVista('planning')">📅 Planning Settimanale</button>
-            <button class="tab-btn" id="tab-staff" onclick="cambiaVista('staff')">👥 Gestione Staff, Ferie e Ore</button>
+            <button class="tab-btn" id="tab-staff" onclick="cambiaVista('staff')">👥 Gestione Staff, Ferie e Gruppi</button>
         </div>
     </header>
 
@@ -509,26 +496,25 @@
     <!-- ========================================== -->
     <div id="view-planning" class="view-section active">
         
-        <!-- Configurazione Ruoli per Fascia Oraria (espandibile) -->
+        <!-- Configurazione Ruoli per Fascia Oraria -->
         <details class="config-accordion no-print">
             <summary>⚙️ Configura Ruoli Richiesti per Fascia Oraria (Clicca per aprire/chiudere)</summary>
             <div class="slot-config-grid" id="configFasceOrarie"></div>
         </details>
 
-        <!-- Selezione Settimana Estate 2027 -->
+        <!-- Selezione Settimana -->
         <div class="week-selector-bar no-print">
             <div class="week-select-group">
                 <label for="selectSettimana" style="font-weight: bold; color: #89b4fa;">📆 Seleziona Settimana:</label>
                 <select id="selectSettimana" onchange="generaPlanning()"></select>
             </div>
-            <div style="display: flex; gap: 10px;">
+            <div>
                 <button class="btn pdf-btn" onclick="window.print()">📥 Esporta in PDF / Stampa</button>
             </div>
         </div>
 
         <button class="btn generate no-print" onclick="generaPlanning()">⚡ Compila Planning Settimana Selezionata</button>
 
-        <!-- Intestazione visibile solo nella stampa PDF -->
         <div class="print-only-header">
             <h2 id="titoloStampaSettimana">Planning Settimanale</h2>
         </div>
@@ -536,7 +522,7 @@
         <!-- Tabella Turni -->
         <div class="table-wrapper" id="risultatoPlanning"></div>
 
-        <!-- Riepilogo Monte Ore Settimanale -->
+        <!-- Riepilogo Ore -->
         <div class="card no-print">
             <h3>📊 Riepilogo Monte Ore Assegnate (Settimana Corrente)</h3>
             <div class="hours-summary-grid" id="riepilogoOre"></div>
@@ -544,25 +530,36 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- VISTA 2: SCHERMATA DEDICATA STAFF & FERIE  -->
+    <!-- VISTA 2: STAFF, FERIE E GRUPPI             -->
     <!-- ========================================== -->
     <div id="view-staff" class="view-section">
         <div class="staff-layout">
-            <!-- Colonna Sinistra: Form Inserimento / Modifica -->
+            <!-- Form Inserimento / Modifica -->
             <div class="card">
                 <h2 id="titoloFormPersona">➕ Aggiungi Operatore</h2>
                 <input type="hidden" id="editIndex" value="-1">
 
-                <!-- Nome e Monte Ore -->
                 <div class="form-grid-3">
                     <div class="input-group">
                         <label>Nome Operatore *</label>
                         <input type="text" id="nomePersona" placeholder="Es. Marco">
                     </div>
                     <div class="input-group">
+                        <label>Macro-Gruppo</label>
+                        <select id="gruppoPersona">
+                            <option value="">Nessuno (Standard)</option>
+                            <option value="Animatori">Animatori (Blocco ruolo Mattina/Pomeriggio)</option>
+                            <option value="Istruttori">Istruttori</option>
+                            <option value="Assistenti">Assistenti</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
                         <label>Max Ore / Giorno</label>
                         <input type="number" id="maxOreGiorno" min="0.5" max="12" step="0.5" value="8">
                     </div>
+                </div>
+
+                <div class="form-grid-2" style="margin-bottom: 12px;">
                     <div class="input-group">
                         <label>Max Ore / Settimana</label>
                         <input type="number" id="maxOreSettimana" min="1" max="60" step="0.5" value="40">
@@ -573,21 +570,17 @@
                 <div class="section-label">1. Ruoli Abilitati *</div>
                 <div class="box-group roles-grid" id="formRuoli"></div>
 
-                <!-- Ferie: Settimane Intere -->
-                <div class="section-label">
-                    <span>2. Ferie: Settimane Intere di Assenza (Estate 2027)</span>
-                </div>
+                <!-- Ferie Settimane -->
+                <div class="section-label">2. Ferie: Settimane Intere di Assenza (Estate 2027)</div>
                 <div class="box-group weeks-grid" id="formSettimaneNo"></div>
 
-                <!-- Ferie / Riposi: Giorni della settimana -->
-                <div class="section-label">
-                    <span>3. Giorni Fissi di Riposo / Assenza (Lun-Ven)</span>
-                </div>
+                <!-- Giorni No -->
+                <div class="section-label">3. Giorni Fissi di Riposo / Assenza (Lun-Ven)</div>
                 <div class="box-group days-grid" id="formGiorniNo"></div>
 
-                <!-- Ferie Orarie / Limiti Fasce -->
+                <!-- Fasce Orarie -->
                 <div class="section-label">
-                    <span>4. Fasce Orarie Disponibili (togli spunta per permessi/ferie orarie)</span>
+                    <span>4. Fasce Orarie Disponibili (togli spunta per permessi)</span>
                     <span>
                         <span class="mini-link" onclick="selezionaTutteOre(true)">Tutte</span> / 
                         <span class="mini-link" onclick="selezionaTutteOre(false)">Nessuna</span>
@@ -595,10 +588,9 @@
                 </div>
                 <div class="box-group hours-grid" id="formOreOk"></div>
 
-                <!-- Campo Note Libere Ferie -->
                 <div class="input-group" style="margin-bottom: 15px;">
-                    <label>5. Note Ferie / Permessi / Annotazioni</label>
-                    <textarea id="noteFerie" placeholder="Es. Ferie dal 2 al 6 Agosto; il venerdì esce sempre alle 14:30..."></textarea>
+                    <label>5. Note Ferie / Permessi</label>
+                    <textarea id="noteFerie" placeholder="Es. Ferie dal 2 al 6 Agosto..."></textarea>
                 </div>
 
                 <div style="display: flex; gap: 10px;">
@@ -607,7 +599,7 @@
                 </div>
             </div>
 
-            <!-- Colonna Destra: Elenco Completo Staff -->
+            <!-- Elenco Staff -->
             <div class="card">
                 <h2>📋 Elenco Staff Configurato (<span id="contatoreStaff">0</span>)</h2>
                 <ul class="staff-list" id="listaPersone"></ul>
@@ -626,30 +618,26 @@
         "Pranzo"
     ];
 
-    // Fasce orarie con durata reale in ore per il calcolo del monte ore
     const FASCE_ORARIE_FISSE = [
-        { label: "08:00 - 09:00", durata: 1.0 },
-        { label: "09:00 - 10:00", durata: 1.0 },
-        { label: "10:00 - 11:00", durata: 1.0 },
-        { label: "11:00 - 12:00", durata: 1.0 },
-        { label: "12:00 - 13:00", durata: 1.0 },
-        { label: "13:00 - 14:00", durata: 1.0 },
-        { label: "14:00 - 14:30", durata: 0.5 },
-        { label: "14:30 - 15:30", durata: 1.0 },
-        { label: "15:30 - 16:30", durata: 1.0 },
-        { label: "16:30 - 17:30", durata: 1.0 }
+        { label: "08:00 - 09:00", durata: 1.0, blocco: "mattina" },
+        { label: "09:00 - 10:00", durata: 1.0, blocco: "mattina" },
+        { label: "10:00 - 11:00", durata: 1.0, blocco: "mattina" },
+        { label: "11:00 - 12:00", durata: 1.0, blocco: "mattina" },
+        { label: "12:00 - 13:00", durata: 1.0, blocco: "mattina" },
+        { label: "13:00 - 14:00", durata: 1.0, blocco: "mattina" },
+        { label: "14:00 - 14:30", durata: 0.5, blocco: "pranzo" },
+        { label: "14:30 - 15:30", durata: 1.0, blocco: "pomeriggio" },
+        { label: "15:30 - 16:30", durata: 1.0, blocco: "pomeriggio" },
+        { label: "16:30 - 17:30", durata: 1.0, blocco: "pomeriggio" }
     ];
 
     const GIORNI_NOMI = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì"];
 
-    // Genera automaticamente le 13 settimane dal 14 Giugno 2027 al 10 Settembre 2027
     function generaSettimaneEstate2027() {
         const settimane = [];
         const mesi = ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"];
-        
-        // Lunedì 14 Giugno 2027
-        let dataCorrente = new Date(2027, 5, 14); // Mese 5 = Giugno (0-based)
-        const dataFine = new Date(2027, 8, 10);   // Mese 8 = Settembre
+        let dataCorrente = new Date(2027, 5, 14); // 14 Giugno 2027
+        const dataFine = new Date(2027, 8, 10);   // 10 Settembre 2027
 
         let numeroSettimana = 1;
         while (dataCorrente <= dataFine) {
@@ -669,8 +657,6 @@
             const shortLabel = `Sett. ${numeroSettimana} (${lun.getDate()}/${lun.getMonth()+1} - ${ven.getDate()}/${ven.getMonth()+1})`;
 
             settimane.push({ id, label, shortLabel, dateGiorni });
-
-            // Passa al lunedì successivo
             dataCorrente.setDate(dataCorrente.getDate() + 7);
             numeroSettimana++;
         }
@@ -679,51 +665,43 @@
 
     const SETTIMANE_2027 = generaSettimaneEstate2027();
 
-    // Carica dati salvati o imposta esempi iniziali
-    let persone = JSON.parse(localStorage.getItem('staff_2027_v1')) || [
+    let persone = JSON.parse(localStorage.getItem('staff_2027_v2')) || [
         {
             nome: "Paolo",
+            gruppo: "Animatori",
             ruoli: ["Check-In", "Tennis/Padel", "Pranzo"],
             maxOreGiorno: 8,
             maxOreSettimana: 38,
-            settimaneNo: ["W9"],
+            settimaneNo: [],
             giorniNo: [],
             fasceOk: FASCE_ORARIE_FISSE.map(f => f.label),
-            noteFerie: "Ferie settimana di Ferragosto (Sett. 9)"
+            noteFerie: ""
         },
         {
             nome: "Nicola",
-            ruoli: ["Multisport", "Piscina", "Pranzo"],
-            maxOreGiorno: 7,
-            maxOreSettimana: 35,
+            gruppo: "Istruttori",
+            ruoli: ["Multisport", "Piscina", "Pranzo", "Tennis/Padel"],
+            maxOreGiorno: 8,
+            maxOreSettimana: 40,
             settimaneNo: [],
-            giorniNo: ["Mercoledì"],
+            giorniNo: [],
             fasceOk: FASCE_ORARIE_FISSE.map(f => f.label),
-            noteFerie: "Riposo fisso il Mercoledì"
+            noteFerie: ""
         },
         {
             nome: "Giulia",
+            gruppo: "Animatori",
             ruoli: ["Gazebo", "Check-In", "Pranzo"],
-            maxOreGiorno: 6,
-            maxOreSettimana: 30,
+            maxOreGiorno: 8,
+            maxOreSettimana: 40,
             settimaneNo: [],
             giorniNo: [],
-            fasceOk: ["08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00", "12:00 - 13:00", "13:00 - 14:00"],
-            noteFerie: "Part-time solo turno mattina fino alle 14:00"
-        },
-        {
-            nome: "Marco",
-            ruoli: ["Tennis/Padel", "Multisport", "Pranzo"],
-            maxOreGiorno: 8.5,
-            maxOreSettimana: 40,
-            settimaneNo: ["W5", "W6"],
-            giorniNo: [],
             fasceOk: FASCE_ORARIE_FISSE.map(f => f.label),
-            noteFerie: "2 settimane di ferie a Luglio"
+            noteFerie: ""
         }
     ];
 
-    let configOrari = JSON.parse(localStorage.getItem('orari_v2')) || {
+    let configOrari = JSON.parse(localStorage.getItem('orari_v3')) || {
         "08:00 - 09:00": ["Check-In", "Gazebo"],
         "09:00 - 10:00": ["Multisport", "Tennis/Padel"],
         "10:00 - 11:00": ["Multisport", "Piscina"],
@@ -737,30 +715,23 @@
     };
 
     function salvaDati() {
-        localStorage.setItem('staff_2027_v1', JSON.stringify(persone));
-        localStorage.setItem('orari_v2', JSON.stringify(configOrari));
+        localStorage.setItem('staff_2027_v2', JSON.stringify(persone));
+        localStorage.setItem('orari_v3', JSON.stringify(configOrari));
     }
 
-    // Cambio Scheda (Planning <-> Staff)
     function cambiaVista(vista) {
         document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-
         document.getElementById('view-' + vista).classList.add('active');
         document.getElementById('tab-' + vista).classList.add('active');
-
-        if (vista === 'planning') {
-            generaPlanning();
-        }
+        if (vista === 'planning') generaPlanning();
     }
 
-    // Popola dropdown settimane 2027
     function initSelectSettimane() {
         const select = document.getElementById('selectSettimana');
         select.innerHTML = SETTIMANE_2027.map(s => `<option value="${s.id}">${s.label}</option>`).join('');
     }
 
-    // Inizializza le checkbox nella schermata Staff
     function initFormStaff() {
         document.getElementById('formRuoli').innerHTML = RUOLI_DISPONIBILI.map(ruolo => `
             <label class="check-item">
@@ -796,40 +767,32 @@
         const ul = document.getElementById('listaPersone');
 
         ul.innerHTML = persone.map((p, index) => {
-            const settNoHtml = (p.settimaneNo && p.settimaneNo.length > 0)
-                ? `<span class="badge limit-week">Ferie Sett: ${p.settimaneNo.join(', ')}</span>`
-                : '';
-
-            const giorniNoHtml = (p.giorniNo && p.giorniNo.length > 0)
-                ? `<span class="badge limit-day">No: ${p.giorniNo.map(g => g.slice(0,3)).join(', ')}</span>`
-                : '';
-
+            const gruppoHtml = p.gruppo ? `<span class="badge group-badge">👥 ${p.gruppo}</span>` : '';
+            const settNoHtml = (p.settimaneNo && p.settimaneNo.length > 0) ? `<span class="badge limit-week">Ferie Sett: ${p.settimaneNo.join(', ')}</span>` : '';
+            const giorniNoHtml = (p.giorniNo && p.giorniNo.length > 0) ? `<span class="badge limit-day">No: ${p.giorniNo.map(g => g.slice(0,3)).join(', ')}</span>` : '';
             const oreLimitate = p.fasceOk && p.fasceOk.length < FASCE_ORARIE_FISSE.length;
-            const oreHtml = oreLimitate
-                ? `<span class="badge limit-hour">Fasce: ${p.fasceOk.length}/${FASCE_ORARIE_FISSE.length}</span>`
-                : '';
-
-            const noteHtml = p.noteFerie
-                ? `<div class="note-text">📝 ${p.noteFerie}</div>`
-                : '';
+            const oreHtml = oreLimitate ? `<span class="badge limit-hour">Fasce: ${p.fasceOk.length}/${FASCE_ORARIE_FISSE.length}</span>` : '';
+            const noteHtml = p.noteFerie ? `<div class="note-text">📝 ${p.noteFerie}</div>` : '';
 
             return `
                 <li class="person-item">
                     <div class="person-details">
                         <div class="person-header">
                             <strong style="font-size: 16px; color: white;">${p.nome}</strong>
+                            ${gruppoHtml}
                             <span class="hours-cap">Max: ${p.maxOreGiorno}h/g • ${p.maxOreSettimana}h/sett</span>
                         </div>
                         <div class="badges-container">
-                            ${p.ruoli.map(r => `<span class="badge">${r}</span>`).join('')}
+                            ${(p.ruoli || []).map(r => `<span class="badge">${r}</span>`).join('')}
                             ${settNoHtml}
                             ${giorniNoHtml}
                             ${oreHtml}
                         </div>
                         ${noteHtml}
                     </div>
-                    <div style="display: flex; gap: 5px; flex-shrink: 0;">
+                    <div style="display: flex; gap: 4px; flex-shrink: 0;">
                         <button class="btn warning" onclick="iniziaModifica(${index})">Modifica</button>
+                        <button class="btn duplicate" onclick="duplicaPersona(${index})" title="Crea un nuovo operatore copiando questo">Duplica</button>
                         <button class="btn danger" onclick="rimuoviPersona(${index})">X</button>
                     </div>
                 </li>
@@ -839,6 +802,7 @@
 
     function salvaPersona() {
         const nome = document.getElementById('nomePersona').value.trim();
+        const gruppo = document.getElementById('gruppoPersona').value;
         const maxOreGiorno = parseFloat(document.getElementById('maxOreGiorno').value) || 8;
         const maxOreSettimana = parseFloat(document.getElementById('maxOreSettimana').value) || 40;
         const noteFerie = document.getElementById('noteFerie').value.trim();
@@ -853,16 +817,7 @@
         if (ruoli.length === 0) return alert("Seleziona almeno un ruolo!");
         if (fasceOk.length === 0) return alert("Seleziona almeno una fascia oraria disponibile!");
 
-        const dati = {
-            nome,
-            ruoli,
-            maxOreGiorno,
-            maxOreSettimana,
-            settimaneNo,
-            giorniNo,
-            fasceOk,
-            noteFerie
-        };
+        const dati = { nome, gruppo, ruoli, maxOreGiorno, maxOreSettimana, settimaneNo, giorniNo, fasceOk, noteFerie };
 
         if (editIndex === -1) {
             persone.push(dati);
@@ -878,6 +833,7 @@
     function iniziaModifica(index) {
         const p = persone[index];
         document.getElementById('nomePersona').value = p.nome;
+        document.getElementById('gruppoPersona').value = p.gruppo || "";
         document.getElementById('maxOreGiorno').value = p.maxOreGiorno || 8;
         document.getElementById('maxOreSettimana').value = p.maxOreSettimana || 40;
         document.getElementById('noteFerie').value = p.noteFerie || '';
@@ -887,7 +843,30 @@
         document.getElementById('btnSalvaPersona').innerText = "💾 Salva Modifiche";
         document.getElementById('btnAnnulla').style.display = "inline-block";
 
-        document.querySelectorAll('.cb-ruolo').forEach(cb => cb.checked = p.ruoli.includes(cb.value));
+        document.querySelectorAll('.cb-ruolo').forEach(cb => cb.checked = (p.ruoli || []).includes(cb.value));
+        document.querySelectorAll('.cb-sett-no').forEach(cb => cb.checked = (p.settimaneNo || []).includes(cb.value));
+        document.querySelectorAll('.cb-giorno-no').forEach(cb => cb.checked = (p.giorniNo || []).includes(cb.value));
+        
+        const oreDisp = p.fasceOk || FASCE_ORARIE_FISSE.map(f => f.label);
+        document.querySelectorAll('.cb-ora-ok').forEach(cb => cb.checked = oreDisp.includes(cb.value));
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function duplicaPersona(index) {
+        const p = persone[index];
+        document.getElementById('nomePersona').value = p.nome + " (Copia)";
+        document.getElementById('gruppoPersona').value = p.gruppo || "";
+        document.getElementById('maxOreGiorno').value = p.maxOreGiorno || 8;
+        document.getElementById('maxOreSettimana').value = p.maxOreSettimana || 40;
+        document.getElementById('noteFerie').value = p.noteFerie || '';
+        document.getElementById('editIndex').value = "-1"; // Nuovo inserimento
+
+        document.getElementById('titoloFormPersona').innerText = "➕ Nuovo Operatore (da duplicazione)";
+        document.getElementById('btnSalvaPersona').innerText = "💾 Salva Operatore";
+        document.getElementById('btnAnnulla').style.display = "inline-block";
+
+        document.querySelectorAll('.cb-ruolo').forEach(cb => cb.checked = (p.ruoli || []).includes(cb.value));
         document.querySelectorAll('.cb-sett-no').forEach(cb => cb.checked = (p.settimaneNo || []).includes(cb.value));
         document.querySelectorAll('.cb-giorno-no').forEach(cb => cb.checked = (p.giorniNo || []).includes(cb.value));
         
@@ -899,6 +878,7 @@
 
     function annullaModifica() {
         document.getElementById('nomePersona').value = '';
+        document.getElementById('gruppoPersona').value = "";
         document.getElementById('maxOreGiorno').value = 8;
         document.getElementById('maxOreSettimana').value = 40;
         document.getElementById('noteFerie').value = '';
@@ -922,7 +902,6 @@
         if (parseInt(document.getElementById('editIndex').value) === index) annullaModifica();
     }
 
-    // Configurazione Ruoli per Fascia Oraria
     function aggiornaConfigOrari() {
         const container = document.getElementById('configFasceOrarie');
         container.innerHTML = FASCE_ORARIE_FISSE.map(fasciaObj => {
@@ -933,7 +912,7 @@
                 return `
                     <label>
                         <input type="checkbox" ${checked} onchange="toggleRuoloOrario('${fascia}', '${ruolo}', this.checked)">
-                        ${ruolo}
+                        ${ruolo} ${ruolo === 'Tennis/Padel' ? '(Richiede 2)' : ''}
                     </label>
                 `;
             }).join('');
@@ -957,16 +936,16 @@
         salvaDati();
     }
 
-    // Algoritmo Principale di Generazione Planning
+    // Generazione Planning con supporto regole Animatori e Tennis/Padel (2 persone fisse)
     function generaPlanning() {
         const weekId = document.getElementById('selectSettimana').value;
         const settimanaObj = SETTIMANE_2027.find(s => s.id === weekId) || SETTIMANE_2027[0];
 
         document.getElementById('titoloStampaSettimana').innerText = `Planning Operativo — ${settimanaObj.label}`;
 
-        // Tracciamento ore assegnate nella settimana e in ciascun giorno
         let oreSettimanali = {};
-        let oreGiornaliere = {}; // { "Paolo": [0, 0, 0, 0, 0] }
+        let oreGiornaliere = {}; 
+        let ruoloFissoAnimatori = {}; // { "Nome_Giorno_Blocco": "Ruolo" } per gli animatori
 
         persone.forEach(p => {
             oreSettimanali[p.nome] = 0;
@@ -982,9 +961,21 @@
         FASCE_ORARIE_FISSE.forEach((fasciaObj, fIndex) => {
             const fascia = fasciaObj.label;
             const durata = fasciaObj.durata;
-            html += `<tr><td class="turno-label">${fascia}</td>`;
+            const blocco = fasciaObj.blocco; // 'mattina', 'pranzo', 'pomeriggio'
             
-            const ruoliRichiesti = configOrari[fascia] || [];
+            html += `<tr><td class="turno-label">${fascia}</td>`;
+            const ruoliRichiestiBase = configOrari[fascia] || [];
+
+            // Espande la lista dei ruoli se serve (es. Tennis/Padel richiede 2 persone)
+            let ruoliRichiesti = [];
+            ruoliRichiestiBase.forEach(r => {
+                if (r === "Tennis/Padel") {
+                    ruoliRichiesti.push("Tennis/Padel");
+                    ruoliRichiesti.push("Tennis/Padel"); // Richiede 2 operatori
+                } else {
+                    ruoliRichiesti.push(r);
+                }
+            });
 
             GIORNI_NOMI.forEach((giorno, gIndex) => {
                 if (ruoliRichiesti.length === 0) {
@@ -1003,7 +994,6 @@
                         const presenteGiorno = !(p.giorniNo || []).includes(giorno);
                         const disponibileFascia = (p.fasceOk || []).includes(fascia);
                         
-                        // Controllo Monte Ore Giornaliero e Settimanale
                         const maxG = p.maxOreGiorno || 8;
                         const maxS = p.maxOreSettimana || 40;
                         const entroLimiteGiorno = (oreGiornaliere[p.nome][gIndex] + durata) <= maxG;
@@ -1013,14 +1003,41 @@
                     });
 
                     if (candidatiValidi.length > 0) {
-                        // Ordina per chi ha lavorato meno ore nella settimana
-                        candidatiValidi.sort((a, b) => {
-                            const diffOre = oreSettimanali[a.nome] - oreSettimanali[b.nome];
-                            if (diffOre !== 0) return diffOre;
-                            return ((a.nome.length + gIndex + fIndex) % 3) - ((b.nome.length + gIndex + fIndex) % 3);
+                        // REGOLA 1: Se l'operatore è un Animatore e ha già un ruolo fisso in questo blocco (mattina/pomeriggio), deve mantenerlo!
+                        let scelto = null;
+                        const chiaveBlocco = `${gIndex}_${blocco}`;
+
+                        // Cerca se c'è un candidato con ruolo già bloccato per questo blocco orario
+                        const candidatoBloccato = candidatiValidi.find(p => {
+                            if (p.gruppo === "Animatori") {
+                                const chiaveAnimatore = `${p.nome}_${chiaveBlocco}`;
+                                if (ruoloFissoAnimatori[chiaveAnimatore] && ruoloFissoAnimatori[chiaveAnimatore] === ruolo) {
+                                    return true;
+                                }
+                            }
+                            return false;
                         });
 
-                        const scelto = candidatiValidi[0];
+                        if (candidatoBloccato) {
+                            scelto = candidatoBloccato;
+                        } else {
+                            // Altrimenti ordina e sceglie chi ha lavorato meno
+                            candidatiValidi.sort((a, b) => {
+                                const diffOre = oreSettimanali[a.nome] - oreSettimanali[b.nome];
+                                if (diffOre !== 0) return diffOre;
+                                return ((a.nome.length + gIndex + fIndex) % 3) - ((b.nome.length + gIndex + fIndex) % 3);
+                            });
+                            scelto = candidatiValidi[0];
+
+                            // Se è un Animatore senza ruolo bloccato in questo blocco, glielo blocchiamo per tutta la mattina/pomeriggio
+                            if (scelto.gruppo === "Animatori" && blocco !== "pranzo") {
+                                const chiaveAnimatore = `${scelto.nome}_${chiaveBlocco}`;
+                                if (!ruoloFissoAnimatori[chiaveAnimatore]) {
+                                    ruoloFissoAnimatori[chiaveAnimatore] = ruolo;
+                                }
+                            }
+                        }
+
                         occupatiInQuestaOra.add(scelto.nome);
                         oreSettimanali[scelto.nome] += durata;
                         oreGiornaliere[scelto.nome][gIndex] += durata;
@@ -1082,7 +1099,7 @@
         }).join('');
     }
 
-    // Avvio iniziale
+    // Avvio
     initSelectSettimane();
     initFormStaff();
     aggiornaListaPersone();
